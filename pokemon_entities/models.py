@@ -12,3 +12,4 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     last = models.FloatField()
     long = models.FloatField()
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
