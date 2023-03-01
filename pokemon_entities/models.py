@@ -1,3 +1,4 @@
+import datetime
 from django.db import models  # noqa F401
 
 # your models here
@@ -13,3 +14,5 @@ class PokemonEntity(models.Model):
     last = models.FloatField()
     long = models.FloatField()
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
+    appeared_at = models.DateTimeField(default=datetime.datetime.now())
+    disappeared_at = models.DateTimeField(default=datetime.datetime.now())
