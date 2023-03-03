@@ -8,6 +8,13 @@ class Pokemon(models.Model):
     description = models.TextField(blank=True)
     title_eng = models.TextField(blank=True)
     title_jp =  models.TextField(blank=True)
+    evolution = models.ForeignKey(
+        'self',
+        null=True,
+        blank=True,
+        verbose_name='Из кого эволюционировал',
+        on_delete=models.SET_NULL
+        )
     
     def __str__(self):
         return self.title
@@ -16,9 +23,16 @@ class Pokemon(models.Model):
 class PokemonEntity(models.Model):
     last = models.FloatField()
     long = models.FloatField()
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
-    appeared_at = models.DateTimeField(default=datetime.datetime.now())
-    disappeared_at = models.DateTimeField(default=datetime.datetime.now())
+    pokemon = models.ForeignKey(
+        Pokemon,
+        on_delete=models.CASCADE
+        )
+    appeared_at = models.DateTimeField(
+        default=datetime.datetime.now()
+        )
+    disappeared_at = models.DateTimeField(
+        default=datetime.datetime.now()
+        )
     level = models.IntegerField(null=True)
     health = models.IntegerField(null=True)
     strength = models.IntegerField(null=True)
