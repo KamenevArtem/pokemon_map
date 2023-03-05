@@ -44,7 +44,8 @@ class PokemonEntity(models.Model):
     pokemon = models.ForeignKey(
         Pokemon,
         on_delete=models.CASCADE,
-        verbose_name='Название покемона'
+        verbose_name='Название покемона',
+        related_name='pokemons_on_map'
         )
     appeared_at = models.DateTimeField(
         default=datetime.datetime.now(),
@@ -81,5 +82,6 @@ class PokemonEntity(models.Model):
         blank=True,
         verbose_name='Выносливость'
         )
+
 
 
