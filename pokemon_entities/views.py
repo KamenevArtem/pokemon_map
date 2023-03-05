@@ -43,7 +43,7 @@ def show_all_pokemons(request):
         pokemon_entities = PokemonEntity.objects.filter(pokemon=pokemon, disappeared_at__gt=localtime(), appeared_at__lt=localtime())
         for entity in pokemon_entities:
             add_pokemon(
-                folium_map, entity.last,
+                folium_map, entity.lat,
                 entity.long,
                 image_url
             )
@@ -89,7 +89,7 @@ def show_pokemon(request, pokemon_id):
     }
     for pokemon_entity in pokemon_entities:
         add_pokemon(
-            folium_map, pokemon_entity.last,
+            folium_map, pokemon_entity.lat,
             pokemon_entity.long,
             request.build_absolute_uri(requested_pokemon.image.url)
         )

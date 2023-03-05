@@ -39,7 +39,7 @@ class Pokemon(models.Model):
 
 
 class PokemonEntity(models.Model):
-    last = models.FloatField(verbose_name='Широта')
+    lat = models.FloatField(verbose_name='Широта')
     long = models.FloatField(verbose_name='Долгота')
     pokemon = models.ForeignKey(
         Pokemon,
