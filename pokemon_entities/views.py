@@ -56,13 +56,13 @@ def show_pokemon(request, pokemon_id):
     requested_pokemon = Pokemon.objects.get_or_404(id=pokemon_id)
     pokemon_entities = PokemonEntity.objects.filter(pokemon=requested_pokemon)
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    previous_pokemon_description = {}
-    next_evolution__pokemon_description = {}
+    previous_evolution_pokemon_description = {}
+    next_evolution_pokemon_description = {}
     if requested_pokemon.previous_evolution:
         previous_pokemon = Pokemon.objects.get(
             title=requested_pokemon.previous_evolution
             )
-        previous_pokemon_description = {
+        previous_evolution_pokemon_description = {
             'pokemon_id': previous_pokemon.pk,
             'img_url': previous_pokemon.image.url,
             'title_ru': previous_pokemon.title,
@@ -71,7 +71,7 @@ def show_pokemon(request, pokemon_id):
         next_evolution_pokemon = Pokemon.objects.get(
             title=requested_pokemon.next_evolution_pokemons.first()
             )
-        next_evolution__pokemon_description = {
+        next_evolution_pokemon_description = {
                 'pokemon_id': next_evolution_pokemon.pk,
                 'img_url': next_evolution_pokemon.image.url,
                 'title_ru': next_evolution_pokemon.title,
@@ -83,8 +83,8 @@ def show_pokemon(request, pokemon_id):
         'title_jp': requested_pokemon.title_jp,
         'description': requested_pokemon.description,
         'pokemon_id': requested_pokemon.pk,
-        'previous_evolution': previous_pokemon_description,
-        'next_evolution': next_evolution__pokemon_description
+        'previous_evolution': previous_evolution_pokemon_description,
+        'next_evolution': next_evolution_pokemon_description
     }
     for pokemon_entity in pokemon_entities:
         add_pokemon(
