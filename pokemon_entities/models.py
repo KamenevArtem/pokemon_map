@@ -1,9 +1,11 @@
 import datetime
 from django.db import models  # noqa F401
 
-# your models here
 class Pokemon(models.Model):
-    title = models.TextField(verbose_name='Название покемона')
+    title = models.CharField(
+        max_length=30,
+        verbose_name='Название покемона'
+        )
     image = models.ImageField(
         blank=True,
         null=True,
@@ -13,11 +15,13 @@ class Pokemon(models.Model):
         blank=True,
         verbose_name='Описание'
         )
-    title_eng = models.TextField(
+    title_eng = models.CharField(
+        max_length=30,
         blank=True,
         verbose_name='Название покемона на английском языке'
         )
-    title_jp =  models.TextField(
+    title_jp =  models.CharField(
+        max_length=30,
         blank=True,
         verbose_name='Название покемона на японском языке'
         )
