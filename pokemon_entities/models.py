@@ -1,5 +1,5 @@
-import datetime
 from django.db import models  # noqa F401
+
 
 class Pokemon(models.Model):
     title = models.CharField(
@@ -20,7 +20,7 @@ class Pokemon(models.Model):
         blank=True,
         verbose_name='Название покемона на английском языке'
         )
-    title_jp =  models.CharField(
+    title_jp = models.CharField(
         max_length=30,
         blank=True,
         verbose_name='Название покемона на японском языке'
@@ -33,7 +33,7 @@ class Pokemon(models.Model):
         on_delete=models.SET_NULL,
         related_name='next_evolution_pokemons',
         )
-    
+
     def __str__(self):
         return self.title
 
@@ -82,9 +82,6 @@ class PokemonEntity(models.Model):
         blank=True,
         verbose_name='Выносливость'
         )
-    
+
     def __str__(self):
         return self.pokemon
-
-
-

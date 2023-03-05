@@ -1,8 +1,5 @@
 import folium
-import json
-import datetime
 
-from django.http import HttpResponseNotFound
 from django.utils.timezone import localtime
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
@@ -15,6 +12,7 @@ DEFAULT_IMAGE_URL = (
     '/latest/fixed-aspect-ratio-down/width/240/height/240?cb=20130525215832'
     '&fill=transparent'
 )
+
 
 def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
     icon = folium.features.CustomIcon(
@@ -40,7 +38,11 @@ def show_all_pokemons(request):
             'img_url': image_url,
             'title_ru': pokemon.title,
         })
-        pokemon_entities = PokemonEntity.objects.filter(pokemon=pokemon, disappeared_at__gte=localtime(), appeared_at__lte=localtime())
+        pokemon_entities = PokemonEntity.objects.filter(
+            pokemon=pokemon,
+            disappeared_at__gte=localtime(),
+            appeared_at__lte=localtime()
+            )
         for entity in pokemon_entities:
             add_pokemon(
                 folium_map, entity.lat,
@@ -57,21 +59,21 @@ def show_pokemon(request, pokemon_id):
     requested_pokemon = get_object_or_404(Pokemon, id=pokemon_id)
     pokemon_entities = PokemonEntity.objects.filter(pokemon=requested_pokemon)
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
-    previous_evolution_pokemon_description = {}
-    next_evolution_pokemon_description = {}
+    previous_evo_pokemon_description = {}
+    next_evo_pokemon_description = {}
     if requested_pokemon.previous_evolution:
-        previous_evolution_pokemon = requested_pokemon.previous_evolution
-        previous_evolution_pokemon_description = {
-            'pokemon_id': previous_evolution_pokemon.pk,
-            'img_url': previous_evolution_pokemon.image.url,
-            'title_ru': previous_evolution_pokemon.title,
+        previous_evo_pokemon = requested_pokemon.previous_evolution
+        previous_evo_pokemon_description = {
+            'pokemon_id': previous_evo_pokemon.pk,
+            'img_url': previous_evo_pokemon.image.url,
+            'title_ru': previous_evo_pokemon.title,
         }
     if requested_pokemon.next_evolution_pokemons.first():
-        next_evolution_pokemon = requested_pokemon.next_evolution_pokemons.first()
-        next_evolution_pokemon_description = {
-                'pokemon_id': next_evolution_pokemon.pk,
-                'img_url': next_evolution_pokemon.image.url,
-                'title_ru': next_evolution_pokemon.title,
+        next_evo_pokemon = requested_pokemon.next_evolution_pokemons.first()
+        next_evo_pokemon_description = {
+                'pokemon_id': next_evo_pokemon.pk,
+                'img_url': next_evo_pokemon.image.url,
+                'title_ru': next_evo_pokemon.title,
             }
     pokemon_description = {
         'title_ru': requested_pokemon.title,
@@ -80,8 +82,8 @@ def show_pokemon(request, pokemon_id):
         'title_jp': requested_pokemon.title_jp,
         'description': requested_pokemon.description,
         'pokemon_id': requested_pokemon.pk,
-        'previous_evolution': previous_evolution_pokemon_description,
-        'next_evolution': next_evolution_pokemon_description
+        'previous_evolution': previous_evo_pokemon_description,
+        'next_evolution': next_evo_pokemon_description
     }
     for pokemon_entity in pokemon_entities:
         add_pokemon(
