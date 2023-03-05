@@ -29,10 +29,10 @@ def add_pokemon(folium_map, lat, lon, image_url=DEFAULT_IMAGE_URL):
 
 
 def show_all_pokemons(request):
-    bd_pokemons = Pokemon.objects.all()
+    pokemons = Pokemon.objects.all()
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     pokemons_on_page = []
-    for pokemon in bd_pokemons:
+    for pokemon in pokemons:
         image_url = request.build_absolute_uri(pokemon.image.url)
         pokemons_on_page.append({
             'pokemon_id': pokemon.pk,
