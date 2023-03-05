@@ -48,13 +48,13 @@ class PokemonEntity(models.Model):
         related_name='pokemons_on_map'
         )
     appeared_at = models.DateTimeField(
-        default=datetime.datetime.now(),
         verbose_name='Время появления',
+        null=True,
         blank=True,
         )
     disappeared_at = models.DateTimeField(
-        default=datetime.datetime.now(),
         verbose_name='Время исчезновения',
+        null=True,
         blank=True,
         )
     level = models.IntegerField(

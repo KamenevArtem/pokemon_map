@@ -5,6 +5,7 @@ import datetime
 from django.http import HttpResponseNotFound
 from django.utils.timezone import localtime
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from .models import Pokemon, PokemonEntity
 
 
@@ -53,7 +54,7 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    requested_pokemon = Pokemon.objects.get_or_404(id=pokemon_id)
+    requested_pokemon = get_object_or_404(Pokemon, id=pokemon_id)
     pokemon_entities = PokemonEntity.objects.filter(pokemon=requested_pokemon)
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     previous_evolution_pokemon_description = {}
