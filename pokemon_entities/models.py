@@ -82,6 +82,9 @@ class PokemonEntity(models.Model):
         blank=True,
         verbose_name='Выносливость'
         )
+    
+    def __str__(self):
+        return self.pokemon
 
 
 
