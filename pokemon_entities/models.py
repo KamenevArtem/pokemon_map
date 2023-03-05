@@ -30,7 +30,7 @@ class Pokemon(models.Model):
         null=True,
         blank=True,
         verbose_name='Из кого эволюционировал',
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
         related_name='next_evolution_pokemons',
         )
     
