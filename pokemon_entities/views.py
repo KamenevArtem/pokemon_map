@@ -68,8 +68,8 @@ def show_pokemon(request, pokemon_id):
             'img_url': previous_evo_pokemon.image.url,
             'title_ru': previous_evo_pokemon.title,
         }
-    if requested_pokemon.next_evolution_pokemons.first():
-        next_evo_pokemon = requested_pokemon.next_evolution_pokemons.first()
+    if requested_pokemon.pokemons.first():
+        next_evo_pokemon = requested_pokemon.pokemons.first()
         next_evo_pokemon_description = {
                 'pokemon_id': next_evo_pokemon.pk,
                 'img_url': next_evo_pokemon.image.url,
