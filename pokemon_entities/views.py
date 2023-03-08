@@ -38,10 +38,11 @@ def show_all_pokemons(request):
             'img_url': image_url,
             'title_ru': pokemon.title,
         })
+        time_now = localtime()
         pokemon_entities = PokemonEntity.objects.filter(
             pokemon=pokemon,
-            disappeared_at__gte=localtime(),
-            appeared_at__lte=localtime()
+            disappeared_at__gte=time_now,
+            appeared_at__lte=time_now
             )
         for entity in pokemon_entities:
             add_pokemon(
