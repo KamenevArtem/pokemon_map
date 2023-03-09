@@ -31,7 +31,7 @@ class Pokemon(models.Model):
         blank=True,
         verbose_name='Из кого эволюционировал',
         on_delete=models.SET_NULL,
-        related_name='pokemons',
+        related_name='next_evolutions',
         )
 
     def __str__(self):
