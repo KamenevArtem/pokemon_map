@@ -38,18 +38,17 @@ def show_all_pokemons(request):
             'img_url': image_url,
             'title_ru': pokemon.title,
         })
-        time_now = localtime()
-        pokemon_entities = PokemonEntity.objects.filter(
-            pokemon=pokemon,
-            disappeared_at__gte=time_now,
-            appeared_at__lte=time_now
-            )
-        for entity in pokemon_entities:
-            add_pokemon(
-                folium_map, entity.lat,
-                entity.long,
-                image_url
-            )
+    time_now = localtime()
+    pokemon_entities = PokemonEntity.objects.select_related('pokemon').filter(
+        disappeared_at__gte=time_now,
+        appeared_at__lte=time_now
+    )
+    for entity in pokemon_entities:
+        add_pokemon(
+            folium_map, entity.lat,
+            entity.long,
+            image_url
+        )
     return render(request, 'mainpage.html', context={
         'map': folium_map._repr_html_(),
         'pokemons': pokemons_on_page,
